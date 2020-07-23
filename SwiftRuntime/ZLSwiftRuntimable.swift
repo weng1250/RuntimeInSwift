@@ -36,10 +36,17 @@ extension ZLSwiftRuntimable {
 
 extension UIApplication {
     
-    private static let runOnce: Void = {
+    fileprivate static let runOnce: Void = {
         ZLLoadExcuteWrapper.excuteAllLoad()
     }()
     
+    open override var next: UIResponder? {
+        UIApplication.runOnce
+        return super.next
+    }
+}
+
+extension AppDelegate {
     open override var next: UIResponder? {
         UIApplication.runOnce
         return super.next
